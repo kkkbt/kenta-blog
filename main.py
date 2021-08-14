@@ -1,6 +1,6 @@
 import os
 from datetime import date
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 
 from flask import Flask, render_template, redirect, url_for, flash, abort
@@ -17,7 +17,7 @@ from flask_gravatar import Gravatar
 from forms import LoginForm, RegisterForm, CreatePostForm, CommentForm
 
 
-load_dotenv()
+# load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 ckeditor = CKEditor(app)
@@ -25,7 +25,8 @@ Bootstrap(app)
 gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False, base_url=None)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///blog.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager()
